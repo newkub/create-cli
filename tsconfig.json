@@ -1,0 +1,29 @@
+{
+	"extends": "../default-config/tsconfig.base.json",
+	"compilerOptions": {
+		"composite": true,
+		"rootDir": "./src",
+		"outDir": "./dist",
+		"lib": ["ES2022"],
+		"types": ["@types/bun"],
+		"target": "ES2022",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": false,
+		"noEmit": false,
+		"declaration": true,
+		"declarationMap": true,
+		"paths": {
+			"#shared/*": ["./src/shared/*"],
+			"#shared": ["./src/shared"],
+			"#adapters/*": ["./src/adapters/*"],
+			"#adapters": ["./src/adapters"],
+			"#modules/*": ["./src/modules/*"],
+			"#modules": ["./src/modules"],
+			"#presentation/*": ["./src/presentation/*"],
+			"#presentation": ["./src/presentation"]
+		}
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "dist", "test", "*.config.ts", "**/examples/**"]
+}
