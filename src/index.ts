@@ -298,3 +298,6 @@ export {
 	type TerminalError,
 	useTerminal,
 } from "./shared";
+
+// ============= Reporter (merged from @wrikka/reporter) =============
+export * from "./reporter/index";

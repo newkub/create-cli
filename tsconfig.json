@@ -21,7 +21,9 @@
 			"#modules/*": ["./src/modules/*"],
 			"#modules": ["./src/modules"],
 			"#presentation/*": ["./src/presentation/*"],
-			"#presentation": ["./src/presentation"]
+			"#presentation": ["./src/presentation"],
+		"#reporter/*": ["./src/reporter/*"],
+		"#reporter": ["./src/reporter"]
 		}
 	},
 	"include": ["src/**/*"],

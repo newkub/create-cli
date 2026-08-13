@@ -46,6 +46,7 @@
 | Package | Version | Type |
 |---|---|---|
 | `@wrikka/shared` | `workspace:*` | Runtime |
+| `chalk` | `^6.0.0` | Runtime |
 | `shiki` | `^4.4.3` | Runtime |
 | `@biomejs/biome` | `^2.5.8` | Dev |
 | `@types/bun` | `^1.3.14` | Dev |
@@ -61,9 +62,10 @@
 - This monorepo uses Turborepo (`turbo run <task>`) and Moonrepo conventions where configured.
 - TypeScript native compiler (`tsgo`) is used when available.
 - Do not introduce `pnpm-lock.yaml`; this project uses Bun.
-- Git submodules in this repo: `apps/template-starter`, `apps/update-dependencies`, `packages/create-cli`. Do not modify submodule contents without committing inside the submodule and updating the parent pointer.
+- This package is consumed as a Git submodule by `@wrikka/bun-packages` at `packages/create-cli`.
 - Before destructive operations (delete, overwrite, `rm -rf`, submodule extraction), ask the user for explicit confirmation.
 - Keep English wording and avoid ANSI escape codes in documentation.
+- Test result reporting (formerly @wrikka/reporter) is merged into this package under `src/reporter` and re-exported from `src/index.ts`.
 
 ## Related Files
 
