@@ -4,7 +4,7 @@
 
 Create CLI - Unified terminal prompt, UI, TUI framework, CLI framework, and data display utilities
 
-![Bun](https://img.shields.io/badge/Bun-1.3.14-000000?logo=bun&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-7.0.2-3178c6?logo=typescript&logoColor=white) ![Version](https://img.shields.io/badge/version-0.1.0-1976d2)
+![Bun](https://img.shields.io/badge/Bun-1.3.14-000000?logo=bun&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-%5E7.0.2-3178c6?logo=typescript&logoColor=white) ![Version](https://img.shields.io/badge/version-0.1.0-1976d2)
 
 
 ```text

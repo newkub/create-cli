@@ -1,36 +1,72 @@
-## Every Task
+# AGENTS.md — @wrikka/create-cli
+> Agent guidance for `packages/create-cli` in the `@wrikka/bun-packages` monorepo.
 
-- Read all workflows, skills, and references, and follow them all
-- Run `/run-verify` after completing work
-- Run `/refactor` after completing work
-- Run `/realize-implementation` after completing work
+## Overview
 
-## Project
+- **Package name:** `@wrikka/create-cli`
+- **Version:** `0.1.0`
+- **Workspace path:** `packages/create-cli`
+- **Type:** `ESM`
+- **Entry point:** `src/index.ts`
 
-- Project Type: Library
-- Package Manager: `Bun`
-- Runtime: `Bun >=1.3.10 <2.0.0`, `Node >=20 <22`
-- TypeScript: `6.0.3`
-- Build Tool: `bunup`
-- Testing: `Vitest`
-- Linting: `Biome`, `Oxlint`
-- Formatting: `Biome`, `Dprint`
+## Technology
 
-## Workflows
+| Tech | Value |
+|---|---|
+| Package Manager | Bun |
+| Runtime | Bun / Node |
+| Type | ESM |
+| TS module | ESNext |
+| TS target | ES2022 |
 
-Workflows used in this project:
+## Commands
 
-- Follow `/follow-ast-grep`
-- Follow `/follow-biome`
-- Follow `/follow-bun`
-- Follow `/follow-bunup`
-- Follow `/follow-shiki`
-- Follow `/follow-tsgo`
-- Follow `/follow-typescript`
-- Follow `/follow-vitest`
+| Script | Command |
+|---|---|
+| `dev` | `bun run src/index.ts` |
+| `build` | `bunup` |
+| `build:watch` | `bunup --watch` |
+| `typecheck` | `tsgo --noEmit` |
+| `typecheck:watch` | `tsgo --noEmit --watch` |
+| `lint` | `biome check` |
+| `lint:fix` | `biome check --write` |
+| `format` | `biome check --write` |
+| `test` | `vitest run` |
+| `test:watch` | `vitest` |
+| `test:coverage` | `vitest run --coverage` |
+| `scan` | `ast-grep scan` |
+| `check` | `bun run lint && bun run typecheck && bun run scan` |
+| `verify` | `bun run check && bun run test && bun run build` |
+| `deps:analyze` | `bunx depcheck` |
+| `clean` | `bunx rimraf dist node_modules` |
+| `security` | `bunx audit` |
 
-## Skills
+## Dependencies
 
-Skills used in this project:
+| Package | Version | Type |
+|---|---|---|
+| `@wrikka/shared` | `workspace:*` | Runtime |
+| `shiki` | `^4.4.3` | Runtime |
+| `@biomejs/biome` | `^2.5.8` | Dev |
+| `@types/bun` | `^1.3.14` | Dev |
+| `@types/node` | `^26.2.0` | Dev |
+| `@wrikka/default-config` | `workspace:*` | Dev |
+| `bunup` | `^0.16.32` | Dev |
+| `typescript` | `^7.0.2` | Dev |
+| `vitest` | `^4.1.10` | Dev |
 
-- (No skills needed for this project)
+## Notes for AI Agents
+
+- Use **Bun** for running scripts (`bun run <script>`).
+- This monorepo uses Turborepo (`turbo run <task>`) and Moonrepo conventions where configured.
+- TypeScript native compiler (`tsgo`) is used when available.
+- Do not introduce `pnpm-lock.yaml`; this project uses Bun.
+- Git submodules in this repo: `apps/template-starter`, `apps/update-dependencies`, `packages/create-cli`. Do not modify submodule contents without committing inside the submodule and updating the parent pointer.
+- Before destructive operations (delete, overwrite, `rm -rf`, submodule extraction), ask the user for explicit confirmation.
+- Keep English wording and avoid ANSI escape codes in documentation.
+
+## Related Files
+
+- `package.json`
+- `tsconfig.json`
+- `README.md`
