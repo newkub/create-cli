@@ -21,7 +21,9 @@ const getEditor = (custom?: string): string => {
 	return "vi";
 };
 
-const parseEditorCommand = (editor: string): { cmd: string; args: string[] } => {
+const parseEditorCommand = (
+	editor: string,
+): { cmd: string; args: string[] } => {
 	const parts = editor.split(/\s+/);
 	return { cmd: parts[0] ?? "vi", args: parts.slice(1) };
 };

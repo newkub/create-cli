@@ -7,7 +7,9 @@ export type ValidationResult = string | undefined;
 
 export type ValidateFunction<T = string> = (value: T) => ValidationResult;
 
-export type AsyncValidateFunction<T = string> = (value: T) => Promise<ValidationResult>;
+export type AsyncValidateFunction<T = string> = (
+	value: T,
+) => Promise<ValidationResult>;
 
 /**
  * Compose multiple validation functions into one.
@@ -96,17 +98,25 @@ export const runAsyncValidation = async <T = string>(
 export const requiredHook: ValidateFunction<string> = (value) =>
 	value.trim().length === 0 ? "This field is required" : undefined;
 
-export const minLengthHook = (min: number): ValidateFunction<string> =>
-	(value) => value.length < min ? `Must be at least ${min} characters` : undefined;
+export const minLengthHook =
+	(min: number): ValidateFunction<string> =>
+	(value) =>
+		value.length < min ? `Must be at least ${min} characters` : undefined;
 
-export const maxLengthHook = (max: number): ValidateFunction<string> =>
-	(value) => value.length > max ? `Must be at most ${max} characters` : undefined;
+export const maxLengthHook =
+	(max: number): ValidateFunction<string> =>
+	(value) =>
+		value.length > max ? `Must be at most ${max} characters` : undefined;
 
-export const patternHook = (pattern: RegExp, message: string): ValidateFunction<string> =>
-	(value) => pattern.test(value) ? undefined : message;
+export const patternHook =
+	(pattern: RegExp, message: string): ValidateFunction<string> =>
+	(value) =>
+		pattern.test(value) ? undefined : message;
 
 export const emailHook: ValidateFunction<string> = (value) =>
-	/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? undefined : "Must be a valid email address";
+	/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+		? undefined
+		: "Must be a valid email address";
 
 export const urlHook: ValidateFunction<string> = (value) => {
 	try {
@@ -122,10 +132,13 @@ export const numberHook: ValidateFunction<string> = (value) =>
 
 export const integerHook: ValidateFunction<string> = (value) => {
 	const num = Number(value);
-	return Number.isNaN(num) || !Number.isInteger(num) ? "Must be a valid integer" : undefined;
+	return Number.isNaN(num) || !Number.isInteger(num)
+		? "Must be a valid integer"
+		: undefined;
 };
 
-export const rangeHook = (min: number, max: number): ValidateFunction<string> =>
+export const rangeHook =
+	(min: number, max: number): ValidateFunction<string> =>
 	(value) => {
 		const num = Number(value);
 		if (Number.isNaN(num)) return "Must be a valid number";

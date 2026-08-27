@@ -2,8 +2,8 @@
  * Command class - defines a CLI command with options, arguments, and action handler
  */
 
-import { parse, type ParsedArgs, type ParseOptions } from "./parser";
 import { generateHelp } from "./help";
+import { type ParsedArgs, type ParseOptions, parse } from "./parser";
 
 export interface CommandOption {
 	/** Long name (without --) */
@@ -164,7 +164,7 @@ export class Command {
 
 		// Check for help flag
 		if (args.includes("--help") || args.includes("-h")) {
-			process.stdout.write(this.help() + "\n");
+			process.stdout.write(`${this.help()}\n`);
 			return;
 		}
 
@@ -195,7 +195,9 @@ export class Command {
 		for (const opt of this.options) {
 			if (opt.required) {
 				if (opt.takesValue && !parsed.options.has(opt.name)) {
-					process.stderr.write(`Error: Missing required option --${opt.name}\n`);
+					process.stderr.write(
+						`Error: Missing required option --${opt.name}\n`,
+					);
 					process.exit(1);
 				}
 			}
@@ -205,7 +207,9 @@ export class Command {
 		for (let i = 0; i < this.arguments.length; i++) {
 			const arg = this.arguments[i]!;
 			if (arg.required && !parsed.positionals[i]) {
-				process.stderr.write(`Error: Missing required argument <${arg.name}>\n`);
+				process.stderr.write(
+					`Error: Missing required argument <${arg.name}>\n`,
+				);
 				process.exit(1);
 			}
 		}

@@ -15,7 +15,10 @@ export interface TableColumn {
 	maxWidth?: number;
 }
 
-export type TableRow = Record<string, string | number | boolean | null | undefined>;
+export type TableRow = Record<
+	string,
+	string | number | boolean | null | undefined
+>;
 
 export interface TableOptions {
 	/** Column definitions */
@@ -38,29 +41,79 @@ const RESET = "\x1b[0m";
 
 const borderChars = {
 	single: {
-		topLeft: "┌", topRight: "┐", topJoin: "┬", topLeftMid: "├", topRightMid: "┤",
-		bottomLeft: "└", bottomRight: "┘", bottomJoin: "┴", midJoin: "┼",
-		horizontal: "─", vertical: "│", leftMid: "├", rightMid: "┤",
+		topLeft: "┌",
+		topRight: "┐",
+		topJoin: "┬",
+		topLeftMid: "├",
+		topRightMid: "┤",
+		bottomLeft: "└",
+		bottomRight: "┘",
+		bottomJoin: "┴",
+		midJoin: "┼",
+		horizontal: "─",
+		vertical: "│",
+		leftMid: "├",
+		rightMid: "┤",
 	},
 	double: {
-		topLeft: "╔", topRight: "╗", topJoin: "╦", topLeftMid: "╠", topRightMid: "╣",
-		bottomLeft: "╚", bottomRight: "╝", bottomJoin: "╩", midJoin: "╬",
-		horizontal: "═", vertical: "║", leftMid: "╠", rightMid: "╣",
+		topLeft: "╔",
+		topRight: "╗",
+		topJoin: "╦",
+		topLeftMid: "╠",
+		topRightMid: "╣",
+		bottomLeft: "╚",
+		bottomRight: "╝",
+		bottomJoin: "╩",
+		midJoin: "╬",
+		horizontal: "═",
+		vertical: "║",
+		leftMid: "╠",
+		rightMid: "╣",
 	},
 	rounded: {
-		topLeft: "╭", topRight: "╮", topJoin: "┬", topLeftMid: "├", topRightMid: "┤",
-		bottomLeft: "╰", bottomRight: "╯", bottomJoin: "┴", midJoin: "┼",
-		horizontal: "─", vertical: "│", leftMid: "├", rightMid: "┤",
+		topLeft: "╭",
+		topRight: "╮",
+		topJoin: "┬",
+		topLeftMid: "├",
+		topRightMid: "┤",
+		bottomLeft: "╰",
+		bottomRight: "╯",
+		bottomJoin: "┴",
+		midJoin: "┼",
+		horizontal: "─",
+		vertical: "│",
+		leftMid: "├",
+		rightMid: "┤",
 	},
 	markdown: {
-		topLeft: "", topRight: "", topJoin: "", topLeftMid: "", topRightMid: "",
-		bottomLeft: "", bottomRight: "", bottomJoin: "", midJoin: "",
-		horizontal: "-", vertical: "|", leftMid: "|", rightMid: "|",
+		topLeft: "",
+		topRight: "",
+		topJoin: "",
+		topLeftMid: "",
+		topRightMid: "",
+		bottomLeft: "",
+		bottomRight: "",
+		bottomJoin: "",
+		midJoin: "",
+		horizontal: "-",
+		vertical: "|",
+		leftMid: "|",
+		rightMid: "|",
 	},
 	none: {
-		topLeft: "", topRight: "", topJoin: "", topLeftMid: "", topRightMid: "",
-		bottomLeft: "", bottomRight: "", bottomJoin: "", midJoin: "",
-		horizontal: " ", vertical: " ", leftMid: " ", rightMid: " ",
+		topLeft: "",
+		topRight: "",
+		topJoin: "",
+		topLeftMid: "",
+		topRightMid: "",
+		bottomLeft: "",
+		bottomRight: "",
+		bottomJoin: "",
+		midJoin: "",
+		horizontal: " ",
+		vertical: " ",
+		leftMid: " ",
+		rightMid: " ",
 	},
 };
 
@@ -84,7 +137,7 @@ const padString = (
 
 const truncate = (str: string, maxLen: number): string => {
 	if (str.length <= maxLen) return str;
-	return str.slice(0, maxLen - 3) + "...";
+	return `${str.slice(0, maxLen - 3)}...`;
 };
 
 /**
@@ -124,7 +177,12 @@ export const renderTable = (options: TableOptions): string => {
 
 	// Top border
 	if (border !== "none" && border !== "markdown") {
-		const top = chars.topLeft + widths.map((w) => chars.horizontal.repeat(w + padding * 2)).join(chars.topJoin) + chars.topRight;
+		const top =
+			chars.topLeft +
+			widths
+				.map((w) => chars.horizontal.repeat(w + padding * 2))
+				.join(chars.topJoin) +
+			chars.topRight;
 		lines.push(borderColor ? `${borderColor}${top}${RESET}` : top);
 	}
 
@@ -136,15 +194,21 @@ export const renderTable = (options: TableOptions): string => {
 			const colored = col.color ? `${col.color}${padded}${RESET}` : padded;
 			return `${pad}${headerColor}${colored}${RESET}${pad}`;
 		});
-		const headerLine = chars.vertical + headerCells.join(chars.vertical) + chars.vertical;
+		const headerLine =
+			chars.vertical + headerCells.join(chars.vertical) + chars.vertical;
 		lines.push(headerLine);
 
 		// Header separator
 		if (border === "markdown") {
-			const sep = "|" + widths.map((w) => "-".repeat(w + padding * 2)).join("|") + "|";
+			const sep = `|${widths.map((w) => "-".repeat(w + padding * 2)).join("|")}|`;
 			lines.push(sep);
 		} else if (border !== "none") {
-			const sep = chars.leftMid + widths.map((w) => chars.horizontal.repeat(w + padding * 2)).join(chars.midJoin) + chars.rightMid;
+			const sep =
+				chars.leftMid +
+				widths
+					.map((w) => chars.horizontal.repeat(w + padding * 2))
+					.join(chars.midJoin) +
+				chars.rightMid;
 			lines.push(borderColor ? `${borderColor}${sep}${RESET}` : sep);
 		}
 	}
@@ -160,13 +224,19 @@ export const renderTable = (options: TableOptions): string => {
 			const colored = col.color ? `${col.color}${padded}${RESET}` : padded;
 			return `${pad}${colored}${pad}`;
 		});
-		const rowLine = chars.vertical + cells.join(chars.vertical) + chars.vertical;
+		const rowLine =
+			chars.vertical + cells.join(chars.vertical) + chars.vertical;
 		lines.push(rowLine);
 	}
 
 	// Bottom border
 	if (border !== "none" && border !== "markdown") {
-		const bottom = chars.bottomLeft + widths.map((w) => chars.horizontal.repeat(w + padding * 2)).join(chars.bottomJoin) + chars.bottomRight;
+		const bottom =
+			chars.bottomLeft +
+			widths
+				.map((w) => chars.horizontal.repeat(w + padding * 2))
+				.join(chars.bottomJoin) +
+			chars.bottomRight;
 		lines.push(borderColor ? `${borderColor}${bottom}${RESET}` : bottom);
 	}
 

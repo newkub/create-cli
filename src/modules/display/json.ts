@@ -58,7 +58,9 @@ const stringifyJson = (
 	}
 
 	if (typeof value === "string") {
-		return colorize ? `${GREEN}"${escapeString(value)}"${RESET}` : `"${escapeString(value)}"`;
+		return colorize
+			? `${GREEN}"${escapeString(value)}"${RESET}`
+			: `"${escapeString(value)}"`;
 	}
 
 	if (typeof value === "bigint") {
@@ -83,7 +85,9 @@ const stringifyJson = (
 		if (entries.length === 0) return "{}";
 
 		const pairs = entries.map(([key, val]) => {
-			const keyStr = colorize ? `${CYAN}"${escapeString(key)}"${RESET}` : `"${escapeString(key)}"`;
+			const keyStr = colorize
+				? `${CYAN}"${escapeString(key)}"${RESET}`
+				: `"${escapeString(key)}"`;
 			return `${childSpaces}${keyStr}: ${stringifyJson(val, level + 1, indent, colorize, maxDepth)}`;
 		});
 		return `{\n${pairs.join(",\n")}\n${spaces}}`;

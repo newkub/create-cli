@@ -52,7 +52,9 @@ export const renderList = (
 		for (let i = 0; i < itemsList.length; i++) {
 			const item = itemsList[i]!;
 			const prefix = indent.repeat(level);
-			const colored = item.color ? `${item.color}${item.text}${RESET}` : item.text;
+			const colored = item.color
+				? `${item.color}${item.text}${RESET}`
+				: item.text;
 
 			if (type === "ordered") {
 				lines.push(`${prefix}${markerColor}${counter + i}.${RESET} ${colored}`);
@@ -88,7 +90,9 @@ export const renderDefinitionList = (
 
 	for (const item of items) {
 		lines.push(`${termColor}${item.term}${RESET}`);
-		const colored = item.color ? `${item.color}${item.description}${RESET}` : item.description;
+		const colored = item.color
+			? `${item.color}${item.description}${RESET}`
+			: item.description;
 		lines.push(`${indent}${colored}`);
 	}
 

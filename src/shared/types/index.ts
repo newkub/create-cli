@@ -145,29 +145,6 @@ export {
 	mapLeft,
 	right,
 } from "./either";
-
-// Option type and utilities
-export type { None, Option, Some } from "./option";
-export {
-	isNone,
-	isSome,
-	map as mapOption,
-	none,
-	some,
-	unwrap as unwrapOption,
-	unwrapOrThrow,
-} from "./option";
-
-// Result utilities
-export {
-	chain as chainResult,
-	failure,
-	map as mapResult,
-	mapError,
-	success,
-	unwrap as unwrapResult,
-} from "./result";
-
 // Factory functions
 export {
 	createBoxStyle,
@@ -181,6 +158,26 @@ export {
 	createSpinnerOptions,
 	createSpinnerState,
 } from "./factories";
+// Option type and utilities
+export type { None, Option, Some } from "./option";
+export {
+	isNone,
+	isSome,
+	map as mapOption,
+	none,
+	some,
+	unwrap as unwrapOption,
+	unwrapOrThrow,
+} from "./option";
+// Result utilities
+export {
+	chain as chainResult,
+	failure,
+	map as mapResult,
+	mapError,
+	success,
+	unwrap as unwrapResult,
+} from "./result";
 
 // Terminal configuration type
 export type TerminalConfig = {

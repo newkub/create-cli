@@ -1,5 +1,5 @@
 {
-	"extends": "../default-config/tsconfig.base.json",
+	"extends": "../../../packages/lib/default-config/tsconfig.base.json",
 	"compilerOptions": {
 		"composite": true,
 		"rootDir": "./src",
@@ -22,8 +22,8 @@
 			"#modules": ["./src/modules"],
 			"#presentation/*": ["./src/presentation/*"],
 			"#presentation": ["./src/presentation"],
-		"#reporter/*": ["./src/reporter/*"],
-		"#reporter": ["./src/reporter"]
+			"#reporter/*": ["./src/reporter/*"],
+			"#reporter": ["./src/reporter"]
 		}
 	},
 	"include": ["src/**/*"],

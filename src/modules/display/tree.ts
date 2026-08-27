@@ -34,17 +34,22 @@ export const renderTree = (
 	): void => {
 		// Render current node
 		if (isRoot && showRoot) {
-			const colored = node.color ? `${node.color}${node.label}${RESET}` : node.label;
+			const colored = node.color
+				? `${node.color}${node.label}${RESET}`
+				: node.label;
 			lines.push(colored);
 		} else if (!isRoot) {
 			const connector = isLast ? "└── " : "├── ";
-			const colored = node.color ? `${node.color}${node.label}${RESET}` : node.label;
+			const colored = node.color
+				? `${node.color}${node.label}${RESET}`
+				: node.label;
 			lines.push(`${prefix}${connector}${colored}`);
 		}
 
 		// Render children
 		if (node.children && node.children.length > 0) {
-			const childPrefix = isRoot && showRoot ? "" : prefix + (isLast ? indent : "│   ");
+			const childPrefix =
+				isRoot && showRoot ? "" : prefix + (isLast ? indent : "│   ");
 			for (let i = 0; i < node.children.length; i++) {
 				const child = node.children[i]!;
 				const childIsLast = i === node.children.length - 1;

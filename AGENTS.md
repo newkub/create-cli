@@ -1,25 +1,25 @@
-# AGENTS.md — @wrikka/create-cli
-> Agent guidance for `packages/create-cli` in the `@wrikka/bun-packages` monorepo.
+﻿---
+name: @wrikka/create-cli
+description: Create CLI - Unified terminal prompt, UI, TUI framework, CLI framework, and data display utilities
+related:
+  - follow-create-devin-skills
+  - follow-skills-map
+  - improve-codebase
+  - optimize-codebase
+  - ask-me
+---
 
-## Overview
+## Goal
 
-- **Package name:** `@wrikka/create-cli`
-- **Version:** `0.1.0`
-- **Workspace path:** `packages/create-cli`
-- **Type:** `ESM`
-- **Entry point:** `src/index.ts`
+Agent guidance for the `@wrikka/create-cli` workspace.
 
-## Technology
+## Scope
 
-| Tech | Value |
-|---|---|
-| Package Manager | Bun |
-| Runtime | Bun / Node |
-| Type | ESM |
-| TS module | ESNext |
-| TS target | ES2022 |
+This workspace lives in `apps/cli/create-cli` within the monorepo.
 
-## Commands
+## Execute
+
+Run the following scripts from `apps/cli/create-cli`:
 
 | Script | Command |
 |---|---|
@@ -41,34 +41,36 @@
 | `clean` | `bunx rimraf dist node_modules` |
 | `security` | `bunx audit` |
 
-## Dependencies
+### Architecture
 
-| Package | Version | Type |
-|---|---|---|
-| `@wrikka/shared` | `workspace:*` | Runtime |
-| `chalk` | `^6.0.0` | Runtime |
-| `shiki` | `^4.4.3` | Runtime |
-| `@biomejs/biome` | `^2.5.8` | Dev |
-| `@types/bun` | `^1.3.14` | Dev |
-| `@types/node` | `^26.2.0` | Dev |
-| `@wrikka/default-config` | `workspace:*` | Dev |
-| `bunup` | `^0.16.32` | Dev |
-| `typescript` | `^7.0.2` | Dev |
-| `vitest` | `^4.1.10` | Dev |
+| Tech | Skill |
+|---|---|
+| (external) | `tech: /learn-from-web` |
+| biome | `tech: /follow-biome` |
+| typescript | `tech: /follow-typescript` |
+| bunup | `tech: /follow-bunup` |
+| vitest | `tech: /follow-vitest` |
 
-## Notes for AI Agents
+### Skills
 
-- Use **Bun** for running scripts (`bun run <script>`).
-- This monorepo uses Turborepo (`turbo run <task>`) and Moonrepo conventions where configured.
-- TypeScript native compiler (`tsgo`) is used when available.
-- Do not introduce `pnpm-lock.yaml`; this project uses Bun.
-- This package is consumed as a Git submodule by `@wrikka/bun-packages` at `packages/create-cli`.
-- Before destructive operations (delete, overwrite, `rm -rf`, submodule extraction), ask the user for explicit confirmation.
-- Keep English wording and avoid ANSI escape codes in documentation.
-- Test result reporting (formerly @wrikka/reporter) is merged into this package under `src/reporter` and re-exported from `src/index.ts`.
+- follow-create-devin-skills
+- follow-skills-map
+- improve-codebase
+- optimize-codebase
+- ask-me
 
-## Related Files
+### Workspaces
 
-- `package.json`
-- `tsconfig.json`
-- `README.md`
+- uses: `@wrikka/shared` (`packages/shared`)
+- uses: `@wrikka/default-config` (`packages/lib/default-config`)
+
+## Rules
+
+- Keep under 250 lines.
+- Map tech stack with `tech: /follow-<skill>`.
+- Map workspace dependencies in `uses:`.
+- Do not duplicate root conventions.
+
+## Expected Outcome
+
+- `@wrikka/create-cli` AGENTS.md is accurate and committed.

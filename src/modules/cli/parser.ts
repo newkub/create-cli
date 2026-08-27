@@ -27,10 +27,15 @@ export interface ParseOptions {
 	allowDashDash?: boolean;
 }
 
-const isLongFlag = (arg: string): boolean => arg.startsWith("--") && arg.length > 2;
+const isLongFlag = (arg: string): boolean =>
+	arg.startsWith("--") && arg.length > 2;
 const isShortFlag = (arg: string): boolean =>
-	arg.startsWith("-") && arg.length > 1 && !arg.startsWith("--") && !arg.match(/^-?\d/);
-const isFlagWithValue = (arg: string): boolean => arg.includes("=") && arg.startsWith("-");
+	arg.startsWith("-") &&
+	arg.length > 1 &&
+	!arg.startsWith("--") &&
+	!arg.match(/^-?\d/);
+const isFlagWithValue = (arg: string): boolean =>
+	arg.includes("=") && arg.startsWith("-");
 
 /**
  * Parse command-line arguments into structured data
@@ -95,7 +100,11 @@ export const parse = (
 			} else {
 				// Check if next arg is a value
 				const nextArg = args[i + 1];
-				if (nextArg !== undefined && !isLongFlag(nextArg) && !isShortFlag(nextArg)) {
+				if (
+					nextArg !== undefined &&
+					!isLongFlag(nextArg) &&
+					!isShortFlag(nextArg)
+				) {
 					result.options.set(resolvedKey, nextArg);
 					i += 2;
 				} else {
@@ -128,7 +137,11 @@ export const parse = (
 			} else {
 				// Check if next arg is a value
 				const nextArg = args[i + 1];
-				if (nextArg !== undefined && !isLongFlag(nextArg) && !isShortFlag(nextArg)) {
+				if (
+					nextArg !== undefined &&
+					!isLongFlag(nextArg) &&
+					!isShortFlag(nextArg)
+				) {
 					result.options.set(resolvedKey, nextArg);
 					i += 2;
 				} else {

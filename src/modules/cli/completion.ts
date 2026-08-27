@@ -124,10 +124,7 @@ const generateFishCompletion = (command: Command): string => {
 	const subcommands = command.getSubcommands();
 	const options = command.getOptions();
 
-	const lines: string[] = [
-		`# Fish completion for ${name}`,
-		"",
-	];
+	const lines: string[] = [`# Fish completion for ${name}`, ""];
 
 	// Subcommand completions
 	for (const sub of subcommands) {

@@ -37,7 +37,9 @@ export const generateHelp = (command: Command): string => {
 	// Add subcommands to usage
 	const subcommands = command.getSubcommands();
 	if (subcommands.length > 0) {
-		lines.push(`       ${name} ${DIM}<command>${RESET} ${DIM}[options]${RESET}`);
+		lines.push(
+			`       ${name} ${DIM}<command>${RESET} ${DIM}[options]${RESET}`,
+		);
 	}
 
 	lines.push("");
@@ -52,9 +54,7 @@ export const generateHelp = (command: Command): string => {
 	if (args.length > 0) {
 		lines.push(`${BOLD}Arguments:${RESET}`);
 		for (const arg of args) {
-			const argDisplay = arg.variadic
-				? `<${arg.name}...>`
-				: `<${arg.name}>`;
+			const argDisplay = arg.variadic ? `<${arg.name}...>` : `<${arg.name}>`;
 			lines.push(`  ${CYAN}${argDisplay}${RESET}  ${arg.description}`);
 		}
 		lines.push("");

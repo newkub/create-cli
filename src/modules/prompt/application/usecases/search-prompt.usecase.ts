@@ -39,7 +39,11 @@ const fuzzyScore = (query: string, target: string): number => {
 	let score = 0;
 	let consecutive = 0;
 
-	for (let targetIdx = 0; targetIdx < lowerTarget.length && queryIdx < lowerQuery.length; targetIdx++) {
+	for (
+		let targetIdx = 0;
+		targetIdx < lowerTarget.length && queryIdx < lowerQuery.length;
+		targetIdx++
+	) {
 		if (lowerTarget[targetIdx] === lowerQuery[queryIdx]) {
 			score += 10 + consecutive * 5;
 			consecutive++;
@@ -92,7 +96,9 @@ export const searchPrompt = async <T = string>(
 			for (let i = 0; i < filtered.length; i++) {
 				const opt = filtered[i]!;
 				const marker = i === selectedIdx ? "❯" : " ";
-				await terminal.write(`  ${marker} ${opt.label}${opt.disabled ? " (disabled)" : ""}\n`);
+				await terminal.write(
+					`  ${marker} ${opt.label}${opt.disabled ? " (disabled)" : ""}\n`,
+				);
 			}
 		} else if (query) {
 			await terminal.write("\n  No matches found\n");
@@ -107,7 +113,11 @@ export const searchPrompt = async <T = string>(
 
 	// If input looks like a number selection
 	const numSelect = Number(input);
-	if (!Number.isNaN(numSelect) && numSelect > 0 && numSelect <= filtered.length) {
+	if (
+		!Number.isNaN(numSelect) &&
+		numSelect > 0 &&
+		numSelect <= filtered.length
+	) {
 		const selected = filtered[numSelect - 1]!;
 		if (selected.disabled) {
 			return { success: false, error: new Error("Option is disabled") };

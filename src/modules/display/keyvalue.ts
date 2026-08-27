@@ -52,9 +52,10 @@ export const renderKeyValue = (options: KeyValueOptions): string => {
 	for (const entry of entries) {
 		const kColor = entry.keyColor ?? keyColor;
 		const vColor = entry.valueColor ?? valueColor;
-		const value = entry.value === null || entry.value === undefined
-			? ""
-			: String(entry.value);
+		const value =
+			entry.value === null || entry.value === undefined
+				? ""
+				: String(entry.value);
 
 		const paddedKey = alignValues
 			? keyAlign === "right"

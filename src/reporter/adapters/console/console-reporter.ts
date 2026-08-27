@@ -1,7 +1,7 @@
-import { padEnd } from "#reporter/shared/utils";
 import { ICONS, REPORT_STATUS, TEST_STATUS } from "#reporter/shared/constants";
 import { FormattingError } from "#reporter/shared/errors";
 import { failure, type Result, success } from "#reporter/shared/types";
+import { padEnd } from "#reporter/shared/utils";
 import { round } from "#reporter/shared/utils/number";
 import type {
 	CoverageMetrics,

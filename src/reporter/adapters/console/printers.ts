@@ -1,6 +1,5 @@
-import { padEnd } from "#reporter/shared/utils";
 import { ICONS, REPORT_STATUS, TEST_STATUS } from "#reporter/shared/constants";
-import { round } from "#reporter/shared/utils";
+import { padEnd, round } from "#reporter/shared/utils";
 import type {
 	CoverageMetrics,
 	Report,

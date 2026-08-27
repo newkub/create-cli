@@ -70,10 +70,9 @@ export const registerSubcommand = (
 	for (const alias of subcommand.aliases) {
 		// Access the internal subcommands map via the findSubcommand method
 		// We'll add alias support by extending the parent
-		(parent as unknown as { subcommands: Map<string, Command> }).subcommands.set(
-			alias,
-			subcommand,
-		);
+		(
+			parent as unknown as { subcommands: Map<string, Command> }
+		).subcommands.set(alias, subcommand);
 	}
 
 	return parent;

@@ -49,9 +49,12 @@ const computeDiff = (oldText: string, newText: string): DiffLine[] => {
 	for (let i = oldLines.length - 1; i >= 0; i--) {
 		for (let j = newLines.length - 1; j >= 0; j--) {
 			if (oldLines[i] === newLines[j]) {
-				matrix[i]![j] = matrix[i + 1]![j + 1]! + 1;
+				matrix[i][j] = (matrix[i + 1]?.[j + 1] ?? 0) + 1;
 			} else {
-				matrix[i]![j] = Math.max(matrix[i + 1]![j]!, matrix[i]![j + 1]!);
+				matrix[i][j] = Math.max(
+					matrix[i + 1]?.[j] ?? 0,
+					matrix[i]?.[j + 1] ?? 0,
+				);
 			}
 		}
 	}
@@ -68,7 +71,7 @@ const computeDiff = (oldText: string, newText: string): DiffLine[] => {
 			});
 			i++;
 			j++;
-		} else if (matrix[i + 1]![j]! >= matrix[i]![j + 1]!) {
+		} else if ((matrix[i + 1]?.[j] ?? 0) >= (matrix[i]?.[j + 1] ?? 0)) {
 			diffLines.push({
 				type: "removed",
 				oldLineNumber: i + 1,
@@ -134,16 +137,23 @@ export const renderDiff = (options: DiffOptions): string => {
 /**
  * Render unified diff
  */
-const renderUnified = (diffLines: DiffLine[], showLineNumbers: boolean): string => {
+const renderUnified = (
+	diffLines: DiffLine[],
+	showLineNumbers: boolean,
+): string => {
 	const lines: string[] = [];
 
 	for (const line of diffLines) {
-		const prefix = line.type === "added" ? "+" : line.type === "removed" ? "-" : " ";
-		const color = line.type === "added" ? GREEN : line.type === "removed" ? RED : DIM;
+		const prefix =
+			line.type === "added" ? "+" : line.type === "removed" ? "-" : " ";
+		const color =
+			line.type === "added" ? GREEN : line.type === "removed" ? RED : DIM;
 		const lineNum = showLineNumbers
 			? `${line.oldLineNumber?.toString().padStart(3) ?? "   "}|${line.newLineNumber?.toString().padStart(3) ?? "   "}`
 			: "";
-		lines.push(`${DIM}${lineNum}${RESET} ${color}${prefix} ${line.content}${RESET}`);
+		lines.push(
+			`${DIM}${lineNum}${RESET} ${color}${prefix} ${line.content}${RESET}`,
+		);
 	}
 
 	return lines.join("\n");
@@ -152,18 +162,27 @@ const renderUnified = (diffLines: DiffLine[], showLineNumbers: boolean): string 
 /**
  * Render inline diff (word-level highlighting)
  */
-const renderInline = (diffLines: DiffLine[], showLineNumbers: boolean): string => {
+const renderInline = (
+	diffLines: DiffLine[],
+	showLineNumbers: boolean,
+): string => {
 	const lines: string[] = [];
 
 	for (const line of diffLines) {
 		if (line.type === "unchanged") {
-			const lineNum = showLineNumbers ? `${line.newLineNumber?.toString().padStart(3) ?? "   "} ` : "";
+			const lineNum = showLineNumbers
+				? `${line.newLineNumber?.toString().padStart(3) ?? "   "} `
+				: "";
 			lines.push(`${DIM}${lineNum}${RESET} ${line.content}`);
 		} else if (line.type === "added") {
-			const lineNum = showLineNumbers ? `${line.newLineNumber?.toString().padStart(3) ?? "   "} ` : "";
+			const lineNum = showLineNumbers
+				? `${line.newLineNumber?.toString().padStart(3) ?? "   "} `
+				: "";
 			lines.push(`${DIM}${lineNum}${RESET} ${GREEN}+${line.content}${RESET}`);
 		} else if (line.type === "removed") {
-			const lineNum = showLineNumbers ? `${line.oldLineNumber?.toString().padStart(3) ?? "   "} ` : "";
+			const lineNum = showLineNumbers
+				? `${line.oldLineNumber?.toString().padStart(3) ?? "   "} `
+				: "";
 			lines.push(`${DIM}${lineNum}${RESET} ${RED}-${line.content}${RESET}`);
 		}
 	}
@@ -186,16 +205,28 @@ const renderSideBySide = (
 		if (line.type === "unchanged") {
 			const oldContent = line.content.padEnd(halfWidth).slice(0, halfWidth);
 			const newContent = line.content.padEnd(halfWidth).slice(0, halfWidth);
-			const oldNum = showLineNumbers ? `${line.oldLineNumber?.toString().padStart(3) ?? "   "}` : "";
-			const newNum = showLineNumbers ? `${line.newLineNumber?.toString().padStart(3) ?? "   "}` : "";
-			lines.push(`${DIM}${oldNum} ${oldContent}${RESET} ${DIM}|${RESET} ${DIM}${newNum} ${newContent}${RESET}`);
+			const oldNum = showLineNumbers
+				? `${line.oldLineNumber?.toString().padStart(3) ?? "   "}`
+				: "";
+			const newNum = showLineNumbers
+				? `${line.newLineNumber?.toString().padStart(3) ?? "   "}`
+				: "";
+			lines.push(
+				`${DIM}${oldNum} ${oldContent}${RESET} ${DIM}|${RESET} ${DIM}${newNum} ${newContent}${RESET}`,
+			);
 		} else if (line.type === "added") {
 			const newContent = line.content.padEnd(halfWidth).slice(0, halfWidth);
-			const newNum = showLineNumbers ? `${line.newLineNumber?.toString().padStart(3) ?? "   "}` : "";
-			lines.push(`${"".padEnd(halfWidth + (showLineNumbers ? 4 : 0))} ${CYAN}|${RESET} ${GREEN}${newNum} ${newContent}${RESET}`);
+			const newNum = showLineNumbers
+				? `${line.newLineNumber?.toString().padStart(3) ?? "   "}`
+				: "";
+			lines.push(
+				`${"".padEnd(halfWidth + (showLineNumbers ? 4 : 0))} ${CYAN}|${RESET} ${GREEN}${newNum} ${newContent}${RESET}`,
+			);
 		} else if (line.type === "removed") {
 			const oldContent = line.content.padEnd(halfWidth).slice(0, halfWidth);
-			const oldNum = showLineNumbers ? `${line.oldLineNumber?.toString().padStart(3) ?? "   "}` : "";
+			const oldNum = showLineNumbers
+				? `${line.oldLineNumber?.toString().padStart(3) ?? "   "}`
+				: "";
 			lines.push(`${RED}${oldNum} ${oldContent}${RESET} ${CYAN}|${RESET}`);
 		}
 	}

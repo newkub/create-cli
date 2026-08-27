@@ -49,7 +49,9 @@ const validateNumber = (
 				Math.round(offset / options.step) * options.step + options.min;
 			return {
 				success: false,
-				error: new Error(`Value must be a multiple of ${options.step} from ${options.min} (nearest: ${nearest})`),
+				error: new Error(
+					`Value must be a multiple of ${options.step} from ${options.min} (nearest: ${nearest})`,
+				),
 			};
 		}
 	}
@@ -76,9 +78,7 @@ export const numberPrompt = async (
 		.filter(Boolean)
 		.join(", ");
 
-	const promptMsg = hint
-		? `${options.message} (${hint})`
-		: options.message;
+	const promptMsg = hint ? `${options.message} (${hint})` : options.message;
 
 	const defaultStr =
 		options.defaultValue !== undefined ? ` [${options.defaultValue}]` : "";

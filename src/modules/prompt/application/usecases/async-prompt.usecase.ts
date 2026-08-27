@@ -64,7 +64,9 @@ export const asyncPrompt = async <T = string>(
 	await terminal.write(`${options.message}\n`);
 	for (let i = 0; i < loadedOptions.length; i++) {
 		const opt = loadedOptions[i]!;
-		await terminal.write(`  ${i + 1}. ${opt.label}${opt.disabled ? " (disabled)" : ""}\n`);
+		await terminal.write(
+			`  ${i + 1}. ${opt.label}${opt.disabled ? " (disabled)" : ""}\n`,
+		);
 	}
 	await terminal.write(`> `);
 

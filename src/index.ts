@@ -22,46 +22,138 @@
  * - shared/ - Shared utilities
  */
 
-// ============= Prompt API (backward compatible with @wrikka/prompt) =============
+// ============= Input Adapters =============
 export {
-	autocomplete,
-	cancel,
-	confirm,
-	date,
-	group,
-	groupMultiselect,
-	intro,
-	isCancel,
-	log,
-	multiselect,
-	note,
-	outro,
-	password,
-	path,
-	select,
-	selectKey,
-	showProgress,
-	spinner,
-	stream,
-	taskLog,
-	text,
-} from "./presentation/cli/prompt-api";
-
+	ensureDirectoryExists,
+	handleCancel,
+} from "./adapters/input/cli/prompt-adapter";
+// ============= Box =============
+export {
+	createBox,
+	getBorderChars,
+	renderBox,
+	validateBoxOptions,
+} from "./modules/box/domain/operations";
+export type {
+	BorderCharacter,
+	BorderStyle,
+	BoxOptions,
+	BoxRender,
+} from "./modules/box/types";
+// ============= Charts =============
+export {
+	renderBarChart,
+	renderChart,
+	renderPieChart,
+	validateChartData,
+	validateChartOptions,
+} from "./modules/charts/domain/operations";
+export type {
+	ChartData,
+	ChartOptions,
+	ChartRender,
+	ChartType,
+} from "./modules/charts/types";
+// ============= CLI Framework =============
+export { Command } from "./modules/cli/command";
+export {
+	type CompletionShell,
+	generateCompletion,
+} from "./modules/cli/completion";
+export { generateHelp } from "./modules/cli/help";
+export { type ParsedArgs, parse } from "./modules/cli/parser";
+export { Subcommand, type SubcommandConfig } from "./modules/cli/subcommand";
+// ============= Color =============
+export { Colors } from "./modules/color/domain/colors-object";
+export {
+	applyColorFormatting,
+	createColorPalette,
+	getColorCode,
+	stripAnsiCodes,
+} from "./modules/color/domain/operations";
+export { validateColorCombination } from "./modules/color/domain/validators";
+export type {
+	ColorFormat,
+	ColorPalette,
+} from "./modules/color/types";
+export {
+	type DiffOptions,
+	type DiffType,
+	renderDiff,
+} from "./modules/display/diff";
+export {
+	type JsonOptions,
+	renderJson,
+} from "./modules/display/json";
+export {
+	type KeyValueOptions,
+	renderKeyValue,
+} from "./modules/display/keyvalue";
+export {
+	type ListType,
+	renderDefinitionList,
+	renderList,
+} from "./modules/display/list";
+// ============= Data Display =============
+export {
+	renderTable,
+	type TableOptions,
+	type TableRow,
+} from "./modules/display/table";
+export {
+	renderTree,
+	type TreeNode,
+} from "./modules/display/tree";
+// ============= Gradient =============
+export {
+	createGradient,
+	type GradientStop,
+	gradient,
+	gradientLine,
+	gradientMulti,
+	rainbow,
+} from "./modules/gradient";
+// ============= Markdown =============
+export {
+	renderMarkdown,
+	validateMarkdownOptions,
+} from "./modules/markdown/domain/operations";
+export type {
+	MarkdownElement,
+	MarkdownOptions,
+	MarkdownRender,
+	MarkdownStyle,
+} from "./modules/markdown/types";
+// ============= Powerline =============
+export {
+	createPowerlineSegment,
+	type PowerlineSegment,
+	type PowerlineStyle,
+	renderPowerline,
+} from "./modules/powerline";
+// ============= Progress =============
+export {
+	createProgressState,
+	formatProgress,
+	renderProgressBar,
+} from "./modules/progress/domain/operations";
+export type {
+	ProgressBarOptions,
+	ProgressRender,
+	ProgressState,
+} from "./modules/progress/types";
+export type { AsyncPromptOptions } from "./modules/prompt/application/usecases/async-prompt.usecase";
+export { asyncPrompt as asyncSelect } from "./modules/prompt/application/usecases/async-prompt.usecase";
+export type { EditorPromptOptions } from "./modules/prompt/application/usecases/editor-prompt.usecase";
+export { editorPrompt as editor } from "./modules/prompt/application/usecases/editor-prompt.usecase";
+export type { NumberPromptOptions } from "./modules/prompt/application/usecases/number-prompt.usecase";
 // New prompt types
 export { numberPrompt as number } from "./modules/prompt/application/usecases/number-prompt.usecase";
-export type { NumberPromptOptions } from "./modules/prompt/application/usecases/number-prompt.usecase";
-export { editorPrompt as editor } from "./modules/prompt/application/usecases/editor-prompt.usecase";
-export type { EditorPromptOptions } from "./modules/prompt/application/usecases/editor-prompt.usecase";
-export { searchPrompt as search } from "./modules/prompt/application/usecases/search-prompt.usecase";
 export type { SearchPromptOptions } from "./modules/prompt/application/usecases/search-prompt.usecase";
-export { asyncPrompt as asyncSelect } from "./modules/prompt/application/usecases/async-prompt.usecase";
-export type { AsyncPromptOptions } from "./modules/prompt/application/usecases/async-prompt.usecase";
-
+export { searchPrompt as search } from "./modules/prompt/application/usecases/search-prompt.usecase";
 // Validation hooks
 export {
 	type AsyncValidateFunction,
-	type ValidateFunction,
-	type ValidationResult,
 	composeAsyncValidationHooks,
 	composeValidationHooks,
 	createAsyncValidationHook,
@@ -77,75 +169,9 @@ export {
 	runAsyncValidation,
 	runValidation,
 	urlHook,
+	type ValidateFunction,
+	type ValidationResult,
 } from "./modules/prompt/domain/operations/validation-hooks";
-
-// ============= Box =============
-export {
-	createBox,
-	getBorderChars,
-	renderBox,
-	validateBoxOptions,
-} from "./modules/box/domain/operations";
-export type {
-	BorderCharacter,
-	BorderStyle,
-	BoxOptions,
-	BoxRender,
-} from "./modules/box/types";
-
-// ============= Charts =============
-export {
-	renderBarChart,
-	renderChart,
-	renderPieChart,
-	validateChartData,
-	validateChartOptions,
-} from "./modules/charts/domain/operations";
-export type {
-	ChartData,
-	ChartOptions,
-	ChartRender,
-	ChartType,
-} from "./modules/charts/types";
-
-// ============= Color =============
-export { Colors } from "./modules/color/domain/colors-object";
-export {
-	applyColorFormatting,
-	createColorPalette,
-	getColorCode,
-	stripAnsiCodes,
-} from "./modules/color/domain/operations";
-export { validateColorCombination } from "./modules/color/domain/validators";
-export type {
-	ColorFormat,
-	ColorPalette,
-} from "./modules/color/types";
-
-// ============= Markdown =============
-export {
-	renderMarkdown,
-	validateMarkdownOptions,
-} from "./modules/markdown/domain/operations";
-export type {
-	MarkdownElement,
-	MarkdownOptions,
-	MarkdownRender,
-	MarkdownStyle,
-} from "./modules/markdown/types";
-
-// ============= Progress =============
-export {
-	createProgressState,
-	formatProgress,
-	renderProgressBar,
-} from "./modules/progress/domain/operations";
-export type {
-	ProgressBarOptions,
-	ProgressRender,
-	ProgressState,
-} from "./modules/progress/types";
-
 // ============= Spinner =============
 export {
 	advanceSpinner,
@@ -157,7 +183,23 @@ export type {
 	SpinnerRender,
 	SpinnerState,
 } from "./modules/spinner/types";
-
+// ============= Theme =============
+export {
+	applyTheme,
+	createTheme,
+	darkTheme,
+	draculaTheme,
+	getTheme,
+	lightTheme,
+	resetTheme,
+	setTheme,
+	solarizedDarkTheme,
+	solarizedLightTheme,
+	type Theme,
+	type ThemeColors,
+	type ThemePreset,
+	themePresets,
+} from "./modules/theme";
 // ============= TUI Components =============
 export type {
 	BoxProps as TUIBoxProps,
@@ -169,7 +211,6 @@ export {
 	renderFlex as renderTUIFlex,
 	renderText as renderTUIText,
 } from "./modules/tui-components/domain";
-
 // ============= TUI Core =============
 export {
 	renderComponentUseCase,
@@ -196,95 +237,38 @@ export type {
 	IRendererPort,
 	ITerminalPort,
 } from "./modules/tui-core/ports/terminal.port";
-
-// ============= Theme =============
+// ============= Prompt API (backward compatible with @wrikka/prompt) =============
 export {
-	type Theme,
-	type ThemeColors,
-	type ThemePreset,
-	applyTheme,
-	createTheme,
-	darkTheme,
-	draculaTheme,
-	getTheme,
-	lightTheme,
-	resetTheme,
-	setTheme,
-	solarizedDarkTheme,
-	solarizedLightTheme,
-	themePresets,
-} from "./modules/theme";
-
-// ============= Gradient =============
-export {
-	type GradientStop,
-	createGradient,
-	gradient,
-	gradientLine,
-	gradientMulti,
-	rainbow,
-} from "./modules/gradient";
-
-// ============= Powerline =============
-export {
-	type PowerlineSegment,
-	type PowerlineStyle,
-	createPowerlineSegment,
-	renderPowerline,
-} from "./modules/powerline";
-
-// ============= CLI Framework =============
-export { Command } from "./modules/cli/command";
-export { type ParsedArgs, parse } from "./modules/cli/parser";
-export { type SubcommandConfig, Subcommand } from "./modules/cli/subcommand";
-export { generateHelp } from "./modules/cli/help";
-export {
-	type CompletionShell,
-	generateCompletion,
-} from "./modules/cli/completion";
-
-// ============= Data Display =============
-export {
-	type TableOptions,
-	type TableRow,
-	renderTable,
-} from "./modules/display/table";
-export {
-	type TreeNode,
-	renderTree,
-} from "./modules/display/tree";
-export {
-	type ListType,
-	renderDefinitionList,
-	renderList,
-} from "./modules/display/list";
-export {
-	type KeyValueOptions,
-	renderKeyValue,
-} from "./modules/display/keyvalue";
-export {
-	type DiffOptions,
-	type DiffType,
-	renderDiff,
-} from "./modules/display/diff";
-export {
-	type JsonOptions,
-	renderJson,
-} from "./modules/display/json";
-
+	autocomplete,
+	cancel,
+	confirm,
+	date,
+	group,
+	groupMultiselect,
+	intro,
+	isCancel,
+	log,
+	multiselect,
+	note,
+	outro,
+	password,
+	path,
+	select,
+	selectKey,
+	showProgress,
+	spinner,
+	stream,
+	taskLog,
+	text,
+} from "./presentation/cli/prompt-api";
 // ============= Presentation =============
 export {
 	renderBox as renderBoxComponent,
 	renderFlex as renderFlexComponent,
 	renderText as renderTextComponent,
 } from "./presentation/components";
-
-// ============= Input Adapters =============
-export {
-	ensureDirectoryExists,
-	handleCancel,
-} from "./adapters/input/cli/prompt-adapter";
-
+// ============= Reporter (merged from @wrikka/reporter) =============
+export * from "./reporter/index";
 // ============= Shared =============
 export {
 	BOX_CONSTANTS,
@@ -298,6 +282,3 @@ export {
 	type TerminalError,
 	useTerminal,
 } from "./shared";
-
-// ============= Reporter (merged from @wrikka/reporter) =============
-export * from "./reporter/index";

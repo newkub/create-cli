@@ -16,8 +16,6 @@ export {
 } from "./validation";
 export {
 	type AsyncValidateFunction,
-	type ValidateFunction,
-	type ValidationResult,
 	composeAsyncValidationHooks,
 	composeValidationHooks,
 	createAsyncValidationHook,
@@ -33,4 +31,6 @@ export {
 	runAsyncValidation,
 	runValidation,
 	urlHook,
+	type ValidateFunction,
+	type ValidationResult,
 } from "./validation-hooks";

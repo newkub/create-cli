@@ -28,7 +28,8 @@ const interpolateColor = (
 	pos: number,
 ): { r: number; g: number; b: number } => {
 	if (stops.length === 0) return { r: 255, g: 255, b: 255 };
-	if (stops.length === 1) return { r: stops[0]!.r, g: stops[0]!.g, b: stops[0]!.b };
+	if (stops.length === 1)
+		return { r: stops[0]?.r, g: stops[0]?.g, b: stops[0]?.b };
 
 	// Clamp position
 	const clampedPos = Math.max(0, Math.min(1, pos));
@@ -61,7 +62,9 @@ const interpolateColor = (
 /**
  * Create a gradient from color stops
  */
-export const createGradient = (stops: GradientStop[]): {
+export const createGradient = (
+	stops: GradientStop[],
+): {
 	toAnsi: (pos: number) => string;
 } => {
 	return {
@@ -75,10 +78,7 @@ export const createGradient = (stops: GradientStop[]): {
 /**
  * Apply gradient coloring to a single line of text
  */
-export const gradientLine = (
-	text: string,
-	stops: GradientStop[],
-): string => {
+export const gradientLine = (text: string, stops: GradientStop[]): string => {
 	if (text.length === 0) return "";
 	const grad = createGradient(stops);
 	let result = "";
@@ -94,10 +94,7 @@ export const gradientLine = (
 /**
  * Apply gradient coloring to multi-line text
  */
-export const gradientMulti = (
-	text: string,
-	stops: GradientStop[],
-): string => {
+export const gradientMulti = (text: string, stops: GradientStop[]): string => {
 	const lines = text.split("\n");
 	const totalLines = lines.length;
 
@@ -108,7 +105,8 @@ export const gradientMulti = (
 
 			let result = "";
 			for (let i = 0; i < line.length; i++) {
-				const charPos = line.length === 1 ? linePos : linePos + (i / line.length) / totalLines;
+				const charPos =
+					line.length === 1 ? linePos : linePos + i / line.length / totalLines;
 				const { r, g, b } = interpolateColor(stops, Math.min(1, charPos));
 				result += `\x1b[38;2;${r};${g};${b}m${line[i]}`;
 			}
@@ -127,7 +125,11 @@ export const gradient = (text: string, stops: GradientStop[]): string =>
 /**
  * Rainbow gradient - cycles through hue colors
  */
-export const rainbow = (text: string, saturation = 100, lightness = 50): string => {
+export const rainbow = (
+	text: string,
+	saturation = 100,
+	lightness = 50,
+): string => {
 	if (text.length === 0) return "";
 
 	let result = "";
@@ -158,12 +160,31 @@ const hslToRgb = (
 	let g = 0;
 	let b = 0;
 
-	if (h < 60) { r = c; g = x; b = 0; }
-	else if (h < 120) { r = x; g = c; b = 0; }
-	else if (h < 180) { r = 0; g = c; b = x; }
-	else if (h < 240) { r = 0; g = x; b = c; }
-	else if (h < 300) { r = x; g = 0; b = c; }
-	else { r = c; g = 0; b = x; }
+	if (h < 60) {
+		r = c;
+		g = x;
+		b = 0;
+	} else if (h < 120) {
+		r = x;
+		g = c;
+		b = 0;
+	} else if (h < 180) {
+		r = 0;
+		g = c;
+		b = x;
+	} else if (h < 240) {
+		r = 0;
+		g = x;
+		b = c;
+	} else if (h < 300) {
+		r = x;
+		g = 0;
+		b = c;
+	} else {
+		r = c;
+		g = 0;
+		b = x;
+	}
 
 	return {
 		r: Math.round((r + m) * 255),

@@ -7,8 +7,8 @@
 export { group } from "./group";
 // Re-export all functions from split modules
 export { intro, log, note, outro } from "./output";
-export { showProgress, spinner, taskLog } from "./progress";
 export type { Spinner } from "./progress";
+export { showProgress, spinner, taskLog } from "./progress";
 export {
 	autocomplete,
 	confirm,
